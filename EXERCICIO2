@@ -1,0 +1,30 @@
+import threading
+
+# Variável global a ser incrementada por thread
+global_variable = 0
+
+# Bloqueio de sincronização
+lock = threading.Lock()
+
+# Função que cada thread irá executar
+def increment_variable():
+    global global_variable
+    for _ in range(100):
+        # Obtenha o bloqueio antes de modificar variáveis globais
+        with lock:
+            global_variable += 1
+
+# Criar threads
+thread1 = threading.Thread(target=increment_variable)
+thread2 = threading.Thread(target=increment_variable)
+
+# Iniciar as threads
+thread1.start()
+thread2.start()
+
+# Aguarde a conclusão de ambos os threads
+thread1.join()
+thread2.join()
+
+# Imprimir o valor final da variável global
+print("O valor final da variável global é:", global_variable)
