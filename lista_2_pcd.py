@@ -1,0 +1,27 @@
+import threading
+import random
+import time
+
+# Função que será executada por cada thread
+def wait_time(thread_id):
+    # Gera um tempo de espera aleatório entre 1 e 5 segundos
+    tempo_de_espera = random.randint(1, 5)
+    print(f"O tópico {thread_id} foi iniciado.")
+    # Aguarda um tempo de espera aleatório
+    time.sleep(tempo_de_espera)
+    print(f"Tópico {thread_id} foi concluído.")
+
+# Armazena a lista de threads
+threads = []
+
+# Cria e inicia 5 tópicos
+for i in range(5):
+    thread = threading.Thread(target=wait_time, args=(i+1,))
+    threads.append(thread)
+    thread.start()
+
+# Aguarde a conclusão de todos os threads
+for thread in threads:
+    thread.join()
+
+print("Todos os threads terminaram. Programa concluído.")
