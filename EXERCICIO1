@@ -1,0 +1,23 @@
+import threading
+
+# FUNÇÃO INICIADA POR OUTRA THREAD
+def imprimir_nome_numero(nome, inicio, fim):
+    for i in range(inicio, fim + 1):
+        print(f"{nome}: {i}")
+
+# Criação das threads
+thread1 = threading.Thread(target=imprimir_nome_numero, args=("Thread 1", 1, 5))
+thread2 = threading.Thread(target=imprimir_nome_numero, args=("Thread 2", 1, 5))
+thread3 = threading.Thread(target=imprimir_nome_numero, args=("Thread 3", 1, 5))
+
+# INICIAR AS THREADS
+thread1.start()
+thread2.start()
+thread3.start()
+
+# INFORMAR QUANDO AS THREADS TERMINAREM
+thread1.join()
+thread2.join()
+thread3.join()
+
+print("Todas as threads foram concluídas.")
